@@ -7,17 +7,24 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 // import { useState } from "react";
 import Link from "next/link";
-import { CssBaseline, ThemeProvider } from '@mui/material';
-import { theme,darktheme } from '@/styles/mui/theme';
+// import { CssBaseline, ThemeProvider } from '@mui/material';
+// import { theme,darktheme } from '@/styles/mui/theme';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import { useState } from 'react';
-      
- export default function Myappbar() {  
-  const [currentTheme,setCurrentTheme] = useState("dar");
+import LightModeIcon from '@mui/icons-material/LightMode'; 
+import { useTheme } from '@mui/material';
+import { useDispatch, useSelector } from "react-redux";
+import { selectTheme, toggleTheme } from "@/redux/reducers/themeReducer";
+export default function Myappbar( props ) {  
+  // const [currentTheme,setCurrentTheme] = useState("dark");
+  // const theme=useTheme();
+  const dispatch = useDispatch();
+  const currentTheme = useSelector(selectTheme).activeTheme;
+  const theme = useTheme();
      return (
     <>
-    <ThemeProvider theme={currentTheme === "dar" ? darktheme : theme}>
-      <CssBaseline></CssBaseline>
+    {/* <ThemeProvider theme={currentTheme === "dark" ? darktheme : theme}> */}
+      {/* <CssBaseline></CssBaseline> */}
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar>
@@ -39,19 +46,20 @@ import { useState } from 'react';
             color="inherit"
             aria-label="menu"
             sx={{ mr: 2 }}
-            onClick={()=> setCurrentTheme(currentTheme == "dar"? "lig": "dar")}
+            onClick={() => dispatch(toggleTheme())}
           >
-            <DarkModeIcon />
+           {  props.currentTheme === "dark" ? <LightModeIcon /> : <DarkModeIcon/>}
           </IconButton>
           <Link href={"/blog"}>
-            <Button color="inherit">Login</Button>
+            <Button sx={{color: theme.palette.icon.main}}>Login</Button>
           </Link>
         
-          <Button color="inherit">Login</Button>
+          <Button sx={{color: theme.palette.icon.main}}>Login</Button>
         </Toolbar>
       </AppBar>
+      
       </Box>
-        </ThemeProvider>
+        {/* </ThemeProvider> */}
       </>
       
       );
