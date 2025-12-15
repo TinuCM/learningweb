@@ -2,15 +2,21 @@ import Head from "next/head";
 import Myappbar from "@/components/commons/Myappbar";
 import { lighttheme ,darktheme} from "@/styles/mui/theme";
 import { ThemeProvider } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {CssBaseline} from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { selectTheme } from "@/redux/reducers/themeReducer";
+import { getActiveTheme,selectTheme } from "@/redux/reducers/themeReducer";
+import {useTheme}
+ from "@mui/material";
 // import { useSelector } from "react-redux";
 export default function Home() {
   const dispatch = useDispatch();
   const currentTheme = useSelector(selectTheme).activeTheme;
     // const [currentTheme,setCurrentTheme] = useState("light");
+      useEffect(() => {
+    dispatch(getActiveTheme()); // To get theme from Cookie
+  }, []);
+    const theme = useTheme();
   return (
     <>
       <ThemeProvider theme={currentTheme === "dark" ? darktheme : lighttheme}>

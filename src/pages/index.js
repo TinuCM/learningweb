@@ -17,9 +17,11 @@ import { Container, CssBaseline, Grid, ThemeProvider } from '@mui/material';
 import CustomCard from "@/components/customcard";
 
   // Redux
-import { selectTheme } from "@/redux/reducers/themeReducer";
+import { selectTheme,getActiveTheme } from "@/redux/reducers/themeReducer";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
+import { useEffect } from "react";
+import {useTheme} from "@mui/material";
 
   // import { selectTheme, getActiveTheme } from "@/redux/reducers/themeReducer";
 export default function Home() {
@@ -29,6 +31,10 @@ export default function Home() {
 
   const dispatch = useDispatch();
   const currentTheme = useSelector(selectTheme).activeTheme;
+    useEffect(() => {
+    dispatch(getActiveTheme()); // To get theme from Cookie
+  }, []);
+     const theme = useTheme();
   const movies = [
     {
       name: "Avengers",

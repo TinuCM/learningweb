@@ -48,7 +48,7 @@ export default function Myappbar( props ) {
             sx={{ mr: 2 }}
             onClick={() => dispatch(toggleTheme())}
           >
-           {  props.currentTheme === "dark" ? <LightModeIcon /> : <DarkModeIcon/>}
+           {  currentTheme === "dark" ? <LightModeIcon /> : <DarkModeIcon/>}
           </IconButton>
           <Link href={"/blog"}>
             <Button sx={{color: theme.palette.icon.main}}>Login</Button>
